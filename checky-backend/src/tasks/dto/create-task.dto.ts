@@ -1,8 +1,18 @@
-import {IsEmpty, IsString, IsBoolean, IsDate} from 'class-validator'
+import { IsNotEmpty, IsString, IsBoolean, IsDate, IsEmpty } from 'class-validator';
+import { User } from '../../auth/schema/user.schema';
 
 export class CreateTaskDto {
-    readonly dateTime: Date;
-    readonly task: string;
-    readonly status: boolean;
+  @IsDate()
+  readonly startDate: Date;
+  @IsDate()
+  readonly endDate: Date;
+  @IsNotEmpty()
+  @IsString()
+  readonly task: string;
+  @IsNotEmpty()
+  @IsBoolean()
+  readonly status: boolean;
 
+  @IsEmpty({ message: "You can not pass user id" })
+  readonly user:User
 }
